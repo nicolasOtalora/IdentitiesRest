@@ -10,6 +10,8 @@ import vo.Paciente;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -42,6 +44,21 @@ public class PacienteREST {
     public List<Paciente> getPacientes_JSON() {
         List<Paciente> listOfCountries = PacienteDAO.getAllPacientes();
         return listOfCountries;
+    }
+    
+    @PUT
+    @Path("/{pacfName}")
+    @Produces( MediaType.APPLICATION_JSON )
+    public Paciente updatePaciente(Paciente pac,@PathParam("pacfName")String currentName) {
+        PacienteDAO.updatePaciente(pac,currentName);
+        return pac;
+    }
+    
+    @DELETE
+    @Path("/{pacfName}")
+    @Produces( MediaType.APPLICATION_JSON )
+    public void deletePaciente(@PathParam("pacfName")String name) {
+        PacienteDAO.deletePaciente(name);
     }
     
 }

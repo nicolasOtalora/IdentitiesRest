@@ -127,5 +127,45 @@ public class PacienteDAO {
         }
         return list;
     }
+    public static void updatePaciente(Paciente emp,String currentName) {
+        System.out.println("Update Paciente");
+        try {
+
+            MongoClient mongoClient = new MongoClient(HOST, PORT);
+
+            DB db = mongoClient.getDB("sampledb");
+
+            DBCollection coll = db.getCollection("pacientes");
+            BasicDBObject newDocument = new BasicDBObject();
+            newDocument.append("$set", new BasicDBObject().append("fName",
+                    emp.getfName()).append("sName", emp.getsName()));
+            BasicDBObject searchQuery = new BasicDBObject().append("fName",
+                    currentName);
+            coll.update(searchQuery, newDocument);
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": "
+                    + e.getMessage());
+        }
+    }
+    public static void deletePaciente(String pacienteName) {
+        System.out.println("Delete Paciente");
+        try {
+
+            MongoClient mongoClient = new MongoClient(HOST, PORT);
+
+            DB db = mongoClient.getDB("sampledb");
+
+            DBCollection coll = db.getCollection("pacientes");
+            
+            DBObject document = new BasicDBObject();
+            document.put("fName", pacienteName);
+            coll.remove(document);
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": "
+                    + e.getMessage());
+        }
+    }
 
 }
