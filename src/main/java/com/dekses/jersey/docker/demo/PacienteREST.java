@@ -30,9 +30,9 @@ public class PacienteREST {
     }
     
     @GET
-    @Path("/{pacID}")
+    @Path("/{pacfName}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Paciente getPaciente(@PathParam("pacID") String empNo) {
+    public List<Paciente> getPaciente(@PathParam("pacfName") String empNo) {
         return PacienteDAO.getPaciente(empNo);
     }
     
